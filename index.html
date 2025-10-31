@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smart Complaint Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  
+    <nav class="navbar">
+      <div class="logo">Complaint Tracker</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <header class = "hero">
+    <div class="hero-content">
+      <h1>Smart Complaint Tracker</h1>
+      <p>Submit and manage your complaints easily and efficiently.</p>
+      <a href="/student_login" class="btn">Login</a>
+      <a href="/student_register" class="btn">Register</a>
+      <a href="/admin" class = "btn">Admin login</a>
+    </div>
+  </header>
+
+  <section class="about" id="about">
+    <h2>About Our System</h2>
+    <div class="about-content">
+      <img src="{{ url_for('static', filename='images/about.jpeg') }}" alt="About illustration" />
+      <p>This system helps students and staff register and track complaints in a transparent, efficient, and user-friendly way. Real-time updates, notifications, and personalized dashboards make it easier for everyone to stay informed.</p>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <h2>Our Services</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="{{ url_for('static', filename='images/complaint.jpeg') }}" alt="Submit Complaint" />
+        <h3>Complaint Submission</h3>
+        <p>Fast and easy submission of complaints with detailed information.</p>
+      </div>
+      <div class="card">
+        <img src="{{ url_for('static', filename='images/status (2).jpg') }}" alt="Track Status" />
+        <h3>Status Tracking</h3>
+        <p>Check complaint updates in real-time through personalized dashboards.</p>
+      </div>
+      <div class="card">
+        <img src="{{ url_for('static', filename='images/admin (2).jpg') }}" alt="Admin Management" />
+        <h3>Admin Management</h3>
+        <p>Admins can resolve issues, update complaints, and send notifications easily.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-content">
+      <img src="{{ url_for('static', filename='images/contact (2).jpg') }}" alt="Contact illustration" />
+      <p>If you have any queries or need assistance, feel free to reach out at <strong>support@complainttracker.com</strong>.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Smart Complaint Tracker. All rights reserved.</p>
+  </footer>
+</body>
+</html>

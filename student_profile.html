@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Complaints</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f6f0;
+            color: #5a4d3a;
+            line-height: 1.6;
+        }
+
+        .profile-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2, h3 {
+            color: #7a664c;
+            margin-bottom: 20px;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff7e6;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e0d4b8;
+        }
+
+        th {
+            background-color: #e0d4b8;
+            color: #5a4d3a;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f4ecd3;
+        }
+
+        tr:hover {
+            background-color: #e0d4b8;
+        }
+        
+        .btn {
+            text-decoration: none;
+            background-color: #e0d4b8;
+            color: #5a4d3a;
+            padding: 12px 25px;
+            margin: 5px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background-color: #cbbf9a;
+            transform: scale(1.05);
+        }
+        
+        .btn:focus {
+            outline: 2px solid #a67c52;
+            outline-offset: 2px;
+        }
+
+        .status-resolved {
+            color: #66bb6a;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .status-other {
+            color: #2196f3;
+            font-weight: bold;
+        }
+
+        .action-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .action-links a {
+            background-color: #7a664c;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 50%;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .action-links a:hover {
+            background-color: #5a4d3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h2>👩‍🎓 Welcome, {{ username }}</h2>
+        <h3>📋 Your Submitted Complaints</h3>
+    
+        <div class="top-buttons">
+             <a class="btn" href="/notifications">🔔 View Notifications</a>
+        </div>
+    
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Complaint</th>
+                <th>Room</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Handled By</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for c in complaints %}
+            <tr>
+                <td>{{ c[0] }}</td>
+                <td>{{ c[1] }}</td>
+                <td>{{ c[2] }}</td>
+                <td>{{ c[3] }}</td>
+                <td class="{% if c[4] == 'Resolved' %}status-resolved
+                {% elif c[4] == 'Pending' %}status-pending
+                {% else %}status-other{% endif %}">
+                    {{ c[4] or 'N/A' }}
+                </td>
+                <td>{{ c[5] }}</td>
+                <td>{{ c[6] or 'Not Assigned' }}</td>
+                <td><a class="btn action-links" href="/edit_complaint/{{ c[0] }}">✏</a></td>
+                <td><a class="btn action-links" href="/delete_complaint/{{ c[0] }}">❌</a></td>
+            </tr> 
+            {% endfor %}
+        </table>
+    
+        <br>
+        <div class="top-buttons">
+            <a class="btn" href="/submit">➕ Add New Complaint</a>
+            <a class="btn" href="/student_logout">🚪 Logout</a>
+        </div>
+    </div>
+</body>
+</html>

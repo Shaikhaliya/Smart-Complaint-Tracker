@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(45deg, #f9f6f0, #fff7e6, #fdfaf3, #f9f6f0);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .register-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .register-box h2 {
+      text-align: center;
+      color: #7a664c;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+
+    .register-box input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .register-box input:focus {
+      border-color: #cbbf9a;
+      box-shadow: 0 0 8px rgba(203, 191, 154, 0.5);
+      outline: none;
+    }
+
+    .register-box button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(45deg, #e0d4b8, #cbbf9a);
+      border: none;
+      border-radius: 8px;
+      color: #5a4d3a;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .register-box button:hover {
+      background: linear-gradient(45deg, #cbbf9a, #e0d4b8);
+      transform: scale(1.05);
+    }
+
+    .register-box a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #a67c52;
+      transition: color 0.3s ease;
+    }
+
+    .register-box a:hover {
+      color: #7a664c;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-box">
+    <h2>Student Registration</h2>
+    <form method="POST">
+      <input type="text" name="username" placeholder="Enter Username" required />
+      <input type="password" name="password" placeholder="Enter Password" required />
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="text" name="student_id" placeholder="Student ID" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="text" name="mobile" placeholder="Mobile Number" required />
+      <input type="text" name="department" placeholder="Department" required />
+      <button type="submit">Register</button>
+    </form>
+    <a href="/student_login">Already have an account? Login</a>
+  </div>
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(45deg, #f9f6f0, #fff7e6, #fdfaf3, #f9f6f0);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .register-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .register-box h2 {
+      text-align: center;
+      color: #7a664c;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+
+    .register-box input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .register-box input:focus {
+      border-color: #cbbf9a;
+      box-shadow: 0 0 8px rgba(203, 191, 154, 0.5);
+      outline: none;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 40px;
+      top: 118px;
+      cursor: pointer;
+      color: #a67c52;
+    }
+
+    .register-box button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(45deg, #e0d4b8, #cbbf9a);
+      border: none;
+      border-radius: 8px;
+      color: #5a4d3a;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .register-box button:hover {
+      background: linear-gradient(45deg, #cbbf9a, #e0d4b8);
+      transform: scale(1.05);
+    }
+
+    .register-box a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #a67c52;
+      transition: color 0.3s ease;
+    }
+
+    .register-box a:hover {
+      color: #7a664c;
+    }
+
+    .message {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-box">
+    <h2>Student Registration</h2>
+    <form method="POST">
+      <div class="message">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+      <input type="text" name="username" placeholder="Enter Username" required />
+      <div style="position:relative;">
+        <input type="password" name="password" id="password" placeholder="Enter Password" required />
+        <span class="toggle-password" onclick="togglePassword()">👁</span>
+      </div>
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="text" name="student_id" placeholder="Student ID" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="text" name="mobile" placeholder="Mobile Number" required />
+      <input type="text" name="department" placeholder="Department" required />
+      <button type="submit">Register</button>
+    </form>
+    <a href="/student_login">Already have an account? Login</a>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passField = document.getElementById("password");
+      if (passField.type === "password") {
+        passField.type = "text";
+      } else {
+        passField.type = "password";
+      }
+    }
+  </script>
+</body>
+</html>
+-->
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(45deg, #f9f6f0, #fff7e6, #fdfaf3, #f9f6f0);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .register-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: float 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .register-box h2 {
+      text-align: center;
+      color: #7a664c;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+
+    .register-box input {
+      width: 100%;
+      padding: 14px 40px 14px 14px; /* right padding for eye icon */
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .register-box input:focus {
+      border-color: #cbbf9a;
+      box-shadow: 0 0 8px rgba(203, 191, 154, 0.5);
+      outline: none;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #a67c52;
+      font-size: 1.1em;
+    }
+
+    .register-box button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(45deg, #e0d4b8, #cbbf9a);
+      border: none;
+      border-radius: 8px;
+      color: #5a4d3a;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .register-box button:hover {
+      background: linear-gradient(45deg, #cbbf9a, #e0d4b8);
+      transform: scale(1.05);
+    }
+
+    .register-box a {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #a67c52;
+      transition: color 0.3s ease;
+    }
+
+    .register-box a:hover {
+      color: #7a664c;
+    }
+
+    .message {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 0.95em;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-box">
+    <h2>Student Registration</h2>
+    <form method="POST">
+      <div class="message">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+      <input type="text" name="username" placeholder="Enter Username" required />
+      
+      <div class="password-container">
+        <input type="password" name="password" id="password" placeholder="Enter Password" required />
+        <span class="toggle-password" onclick="togglePassword()">👁</span>
+      </div>
+      
+      <input type="text" name="name" placeholder="Full Name" required />
+      <input type="text" name="student_id" placeholder="Student ID" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <input type="text" name="mobile" placeholder="Mobile Number" required />
+      <input type="text" name="department" placeholder="Department" required />
+      <button type="submit">Register</button>
+    </form>
+    <a href="/student_login">Already have an account? Login</a>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passField = document.getElementById("password");
+      if (passField.type === "password") {
+        passField.type = "text";
+      } else {
+        passField.type = "password";
+      }
+    }
+  </script>
+</body>
+</html>
+-->

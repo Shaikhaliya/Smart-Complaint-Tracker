@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8f4ec, #e6dcc7);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-box {
+      background-color: #fff9f2;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      transition: transform 0.3s ease;
+    }
+
+    .login-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #5a4d3a;
+    }
+
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #d8cbb5;
+      background-color: #f4ecd3;
+      color: #5a4d3a;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-box input[type="text"]:focus,
+    .login-box input[type="password"]:focus {
+      border-color: #cbbf9a;
+      box-shadow: 0 0 5px rgba(198, 159, 82, 0.5);
+      outline: none;
+    }
+
+    .login-box input::placeholder {
+      color: #a67c52;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #d4b483;
+      color: #5a4d3a;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-box button:hover {
+      background-color: #c1a165;
+      transform: scale(1.05);
+    }
+
+    .flash-msg {
+      text-align: center;
+      padding: 10px;
+      background-color: #ffe5e0;
+      color: #d9534f;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <form class="login-box" method="POST">
+    <h2>Admin Login</h2>
+
+    {% with messages = get_flashed_messages(category_filter=["error", "message"]) %}
+      {% if messages %}
+        <div class="flash-msg">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+
+    <input type="text" name="username" placeholder="Username" required>
+    <input type="password" name="password" placeholder="Password" required>
+
+    <button type="submit">Login</button>
+  </form>
+
+</body>
+</html>

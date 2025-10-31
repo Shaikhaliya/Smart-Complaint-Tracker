@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Complaint Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f6f0;
+            color: #5a4d3a;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #fff7e6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #7a664c;
+            margin: 0;
+        }
+
+        .add-btn {
+            text-decoration: none;
+            background-color: #e0d4b8;
+            color: #5a4d3a;
+            padding: 12px 25px;
+            margin: 5px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background-color: #cbbf9a;
+            transform: scale(1.05);
+        }
+
+        .add-btn:focus {
+            outline: 2px solid #a67c52;
+            outline-offset: 2px;
+        }
+
+        .filter-form {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background-color: #fff7e6;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-form select, .filter-form button {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #dcd3c7;
+            background-color: #f4ecd3;
+            color: #5a4d3a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-form select:focus, .filter-form button:focus {
+            outline: 2px solid #a67c52;
+        }
+
+        .filter-form button:hover {
+            background-color: #e0d4b8;
+        }
+
+        .dashboard-table-container {
+            overflow-x: auto;
+            background-color: #fff7e6;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #e0d4b8;
+            text-align: center;
+        }
+
+        th {
+            background-color: #e0d4b8;
+            color: #5a4d3a;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f4ecd3;
+        }
+
+        tr:hover {
+            background-color: #e0d4b8;
+        }
+
+        .status-resolved {
+            color: #66bb6a;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .form-update {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .form-update input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #dcd3c7;
+            background-color: #f4ecd3;
+            color: #5a4d3a;
+        }
+
+        .form-update button {
+            background-color: #7a664c;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-update button:hover {
+            background-color: #5a4d3a;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <div class="top-bar">
+    <h2>
+        {% if session.get('student') %}🧑‍🎓 Student Dashboard
+        {% elif session.get('admin') %}🛡 Admin Dashboard
+        {% else %}📋 Complaint Dashboard
+        {% endif %}
+    </h2>
+
+    {% if session.get('student') %}
+        <a href="/submit" class="add-btn">➕ Add New Complaint</a>
+    {% elif session.get('admin') %}
+        <a href="/logout" class="add-btn" style="background-color:#ef5350; color:white;">
+            🚪 Logout
+        </a>
+    {%endif%}
+</div>
+    
+        <!-- General flash messages -->
+{% with messages = get_flashed_messages(category_filter=["message", "error"]) %}
+    {% if messages %}
+        <div class="message" style="background-color: #d4edda; color: #155724;">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endwith %}
+
+{% if session.get('admin') %}
+    <form action="/delete_all" method="post" onsubmit="return confirm('Are you sure you want to delete all complaints and notifications?');">
+        <button type="submit" class="add-btn" style="background-color: #f44336; color: white;">🗑 Delete All</button>
+    </form>
+{%endif%}
+
+
+
+
+
+<!-- Admin notice messages -->
+{% with messages = get_flashed_messages(category_filter=["admin_notice"]) %}
+    {% if messages %}
+        <div class="message" style="background-color: #fff3cd; color: #856404;">
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{%endwith%}
+
+    
+        <form method="GET" action="/dashboard" class="filter-form">
+            <label>
+                Category:
+                <select name="category">
+                    <option value="">All</option>
+                    <option value="Classroom" {% if request.args.get('category') == 'Classroom' %}selected{% endif %}>Classroom</option>
+                    <option value="Library" {% if request.args.get('category') == 'Library' %}selected{% endif %}>Library</option>
+                </select>
+            </label>
+    
+            <label>
+                Status:
+                <select name="status">
+                    <option value="">All</option>
+                    <option value="Pending" {% if request.args.get('status') == 'Pending' %}selected{% endif %}>Pending</option>
+                    <option value="Resolved" {% if request.args.get('status') == 'Resolved' %}selected{% endif %}>Resolved</option>
+                     
+                </select>
+                </select>
+            </label>
+            <label>
+    From Date:
+    <input type="date" name="from_date" value="{{ request.args.get('from_date', '') }}">
+</label>
+
+<label>
+    To Date:
+    <input type="date" name="to_date" value="{{ request.args.get('to_date', '') }}">
+</label>
+    
+            <button type="submit">🔍 Filter</button>
+        </form>
+    
+        <div class="dashboard-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Complaint</th>
+                        <th>Room</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Handled By</th>
+                        {% if session.get('admin') %}
+                            <th>Name</th>
+                            <th>Student ID</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Department</th>
+                        {% endif %}
+                        <th>Update Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for complaint in complaints %}
+                    <tr>
+                        <td>{{ complaint[0] }}</td>
+                        <td>{{ complaint[1] }}</td>
+                        <td>{{ complaint[2] }}</td>
+                        <td>{{ complaint[3] }}</td>
+                        <td class="{{ 'status-resolved' if complaint[4] == 'Resolved' else 'status-pending' }}">
+                            {{ complaint[4] }}
+                        </td>
+                        <td>{{ complaint[5] }}</td>
+                        <td>{{ complaint[6] or 'Not Assigned' }}</td>
+    
+                        {% if session.get('admin') %}
+                            <td>{{ complaint[7] }}</td>
+                            <td>{{ complaint[8] }}</td>
+                            <td>{{ complaint[9] }}</td>
+                            <td>{{ complaint[10] }}</td>
+                            <td>{{ complaint[11] }}</td>
+                        {% endif %}
+    
+                        <td>
+                            {% if complaint[4] != 'Resolved' and session.get('admin') %}
+                                <form action="/update_status/{{ complaint[0] }}" method="post" class="form-update">
+                                    <input type="text" name="handled_by" placeholder="Enter handler name">
+                                    <button type="submit">Mark as Resolved</button>
+                                </form>
+                            {% elif complaint[4] != 'Resolved' %}
+                                Pending
+                            {% else %}
+                                ✅ Resolved
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

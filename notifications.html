@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>My Notifications</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f4ec, #e6dcc7);
+            color: #5a4d3a;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h2 {
+            margin: 20px 0;
+            color: #a67c52;
+            font-size: 28px;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 80%;
+            background-color: #fff9f2;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        table:hover {
+            transform: translateY(-3px);
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid #d8cbb5;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #d4b483;
+            color: #5a4d3a;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f4ecd3;
+        }
+
+        tr:hover {
+            background-color: #e0d4b8;
+        }
+
+        .notification-msg {
+            color: #66bb6a;
+            font-weight: bold;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn-container button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #d4b483;
+            color: #5a4d3a;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-container button:hover {
+            background-color: #c1a165;
+            transform: scale(1.05);
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🔔 My Notifications</h2>
+
+    <table>
+        <tr>
+            <th>Date & Time</th>
+            <th>Message</th>
+        </tr>
+        {% for message, date in notifications %}
+        <tr>
+            <td>{{ date }}</td>
+            <td><span class="notification-msg">{{ message }}</span></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="btn-container">
+        <a href="/student_profile">
+            <button>👤 Go to Profile</button>
+        </a>
+    </div>
+
+</body>
+</html>

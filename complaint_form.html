@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Submit Complaint</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8f4ec, #e6dcc7);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #5a4d3a;
+    }
+
+    .form-box {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      padding: 30px;
+      width: 380px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease;
+    }
+
+    .form-box:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      text-align: center;
+      color: #a67c52;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    select, textarea, input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #d8cbb5;
+      background-color: #fff9f2;
+      color: #5a4d3a;
+      font-size: 14px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    select:focus, textarea:focus, input:focus {
+      border-color: #a67c52;
+      box-shadow: 0 0 8px rgba(166, 124, 82, 0.5);
+      outline: none;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #a99d87;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #d4b483;
+      color: #5a4d3a;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #c1a165;
+      transform: scale(1.05);
+    }
+
+    .flash-msg {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #6b4f1c;
+      background-color: #fff3d9;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <form class="form-box" method="POST" onsubmit="return validateForm()">
+    <h2>Submit Complaint</h2>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-msg">
+          <ul style="list-style: none; padding: 0;">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <label>Category</label>
+    <select name="category" required>
+      <option value="">---Select category---</option>
+      <option value="Classroom">Classroom</option>
+      <option value="Library">Library</option>
+      <option value="Canteen">Canteen</option>
+      <option value="Washroom">Washroom</option>
+      <option value="Hostel">Hostel</option>
+      <option value="Laboratory">Laboratory</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label>Complaint</label>
+    <textarea name="complaint" rows="4" placeholder="Describe the issue..." required></textarea>
+
+    <label>Location</label>
+    <input type="text" name="room" placeholder="Location." required>
+
+    <button type="submit">Submit Complaint</button>
+  </form>
+
+  <script>
+    function validateForm() {
+      const category = document.querySelector('[name="category"]').value;
+      const complaint = document.querySelector('[name="complaint"]').value.trim();
+      const room = document.querySelector('[name="room"]').value.trim();
+      if (!category || !complaint || !room) {
+        alert("Please fill all the fields.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
